@@ -2,6 +2,7 @@
 Code to manage, organize and group 'clues*' key files
 """
 PATH = r"C:/Users/hdemb/Dropbox/Documents/Family/keys/"
+DEFAULTFILE = "clues20221127"
 DEBUG = 0
 
 
@@ -57,7 +58,7 @@ def getClueGroups(clues, indata):
           else:
             cluedict.update({clue:[lstitm[1]]})
       except IndexError:
-        print(f"Skipped: {lstitm}")
+        if DEBUG: print(f"Skipped: {lstitm}")
   return cluedict
 
   
@@ -104,8 +105,10 @@ def ColumPrint(listinfo, cols = 6):
 
 def dictPrint(indict):
   "print the elements of a dictionary"
-  for key, val in indict.items():
-    print(f"{key:22}: {val}")
+  #for key, val in indict.items():
+  keylst = sorted(indict.keys())
+  for key in keylst:
+    print(f"{key:25}: {indict[key]}")
   return
 def getPassLst(data):
   "return the unique pwd clues found"
@@ -114,12 +117,12 @@ def getPassLst(data):
     try:
       clues.add(each)
     except:
-      print(f"Skipped: {each}")
+      if DEBUG: print(f"Skipped: {each}")
   return clues
   
 def runTheCode(path=PATH):
   "run the code"
-  keyfile = True and input("Which file?") or 'clues20220131.txt'
+  keyfile = True and input("Which file?") or DEFAULTFILE
   data = open(f"{path}{keyfile}",'rt').readlines()
   keylst = GroupData(data)
   return keylst
