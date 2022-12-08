@@ -2,7 +2,7 @@
 Code to manage, organize and group 'clues*' key files
 """
 PATH = r"C:/Users/hdemb/Dropbox/Documents/Family/keys/"
-DEFAULTFILE = "clues20221127"
+DEFAULTFILE = "cluestestset"
 DEBUG = 0
 
 
@@ -140,6 +140,6 @@ if __name__ == '__main__':
   print(f"\nThe uniq clues are:")
   ColumPrint(sorted(uniq),1)
   cluedict = getClueGroups(clues, data)
-  print("\nThe associations are:")
+  print("\n\nThe associations are:")
   dictPrint(cluedict)
   
