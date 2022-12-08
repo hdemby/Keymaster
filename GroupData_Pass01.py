@@ -69,7 +69,7 @@ def getPWDs(datalst):
     try:
       pwset.add(each[3])
     except:
-      print("skipped: {each}")
+      if DEBUG: print("skipped: {each}")
   return pwset
 
 ##-----------------
@@ -123,6 +123,7 @@ def getPassLst(data):
 def runTheCode(path=PATH):
   "run the code"
   keyfile = True and input("Which file?") or DEFAULTFILE
+  print(f"Checking '{keyfile}'...")
   data = open(f"{path}{keyfile}",'rt').readlines()
   keylst = GroupData(data)
   return keylst
@@ -132,12 +133,12 @@ if __name__ == '__main__':
   "run the code"
   data = runTheCode()
   print(f"There are {len(data)} items in this report")
-  ShowList(data)
+  #ShowList(data)
   clues = getPWDs(data)
-  print(clues)
+  #print(clues)
   uniq = getPassLst(clues)
-  print(f"There are {len(uniq)} clues in this list")
-  print(f"\nThe uniq clues are:")
+  print(f"\nThere are {len(uniq)} unique clues for those items:")
+  #print(f"\nThe uniq clues are:")
   ColumPrint(sorted(uniq),1)
   cluedict = getClueGroups(clues, data)
   print("\n\nThe associations are:")
