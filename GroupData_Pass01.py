@@ -4,6 +4,10 @@ Code to manage, organize and group 'clues*' key files
 PATH = r"C:/Users/hdemb/Dropbox/Documents/Family/keys/"
 DEBUG = 0
 
+
+##-------------------------
+##  CONTROL
+##-------------------------
 def minspace(lline):
   "remove extra space in lline data text"
   #print(lline.split(' '))
@@ -39,6 +43,23 @@ def GroupData(data):
     else:
       pass
   return groupdata
+
+def getClueGroups(clues, indata):
+  "create a dictionary of users of each clue"
+  cluedict = {}
+  inlst = indata
+  for clue in clues:
+    for lstitm in inlst:
+      try:
+        if clue == lstitm[3]:
+          if clue in cluedict.keys():
+            cluedict[clue].append(lstitm[1])
+          else:
+            cluedict.update({clue:[lstitm[1]]})
+      except IndexError:
+        print(f"Skipped: {lstitm}")
+  return cluedict
+
   
 def getPWDs(datalst):
   "return set of existing passwords"
@@ -49,6 +70,10 @@ def getPWDs(datalst):
     except:
       print("skipped: {each}")
   return pwset
+
+##-----------------
+##  VIEW
+##-----------------
   
 def ShowList(datalst):
   "display the data"
@@ -77,6 +102,11 @@ def ColumPrint(listinfo, cols = 6):
       print(f"{itm}, " for itm in itms[last:])
   return
 
+def dictPrint(indict):
+  "print the elements of a dictionary"
+  for key, val in indict.items():
+    print(f"{key:22}: {val}")
+  return
 def getPassLst(data):
   "return the unique pwd clues found"
   clues = set()
@@ -106,4 +136,7 @@ if __name__ == '__main__':
   print(f"There are {len(uniq)} clues in this list")
   print(f"\nThe uniq clues are:")
   ColumPrint(sorted(uniq),1)
+  cluedict = getClueGroups(clues, data)
+  print("\nThe associations are:")
+  dictPrint(cluedict)
   
