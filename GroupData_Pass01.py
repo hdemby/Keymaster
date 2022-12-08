@@ -52,12 +52,40 @@ def getPWDs(datalst):
   
 def ShowList(datalst):
   "display the data"
-  for each in clues:
+  for each in datalst:
     try:
       print(f"{len(each)}\t{each[1]}\t{each[2]}\t{each[3]}\t\t{each}")
     except:
       pass
   return
+
+def ColumPrint(listinfo, cols = 6):
+  "print information in defined number of columns"
+  reset = 0
+  itms = listinfo
+  last = len(itms) % cols
+  curcol = 0
+  for itm in itms:
+    try:
+      if curcol < cols:
+        print(itm, end=", ")
+        curcol +=1
+      else:
+        print()
+        curcol = 0
+    except:
+      print(f"{itm}, " for itm in itms[last:])
+  return
+
+def getPassLst(data):
+  "return the unique pwd clues found"
+  clues = set()
+  for each in data:
+    try:
+      clues.add(each)
+    except:
+      print(f"Skipped: {each}")
+  return clues
   
 def runTheCode(path=PATH):
   "run the code"
@@ -69,8 +97,13 @@ def runTheCode(path=PATH):
 
 if __name__ == '__main__':
   "run the code"
-  clues = runTheCode()
-  ShowList(clues)
-  print(getPWDs(clues))
-  print(f"There are {len(clues)} items in this report")
+  data = runTheCode()
+  print(f"There are {len(data)} items in this report")
+  ShowList(data)
+  clues = getPWDs(data)
+  print(clues)
+  uniq = getPassLst(clues)
+  print(f"There are {len(uniq)} clues in this list")
+  print(f"\nThe uniq clues are:")
+  ColumPrint(sorted(uniq),1)
   
