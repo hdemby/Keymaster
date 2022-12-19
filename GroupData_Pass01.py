@@ -72,6 +72,16 @@ def getPWDs(datalst):
       if DEBUG: print("skipped: {each}")
   return pwset
 
+def getUniqPassLst(indata):
+  "return the unique pwd clues found"
+  clues = set()
+  for each in indata:
+    try:
+      clues.add(rf"{each}")
+    except:
+      if DEBUG: print(f"Skipped: {each}")
+  return clues
+
 ##-----------------
 ##  VIEW
 ##-----------------
@@ -96,8 +106,8 @@ def ColumPrint(listinfo, cols = 6):
       if curcol < cols:
         print(itm, end=", ")
         curcol +=1
-      else:
-        print()
+      elif curcol >= cols:
+        print(f"\n{itm},")
         curcol = 0
     except:
       print(f"{itm}, " for itm in itms[last:])
@@ -110,16 +120,7 @@ def dictPrint(indict):
   for key in keylst:
     print(f"{key:25}: {indict[key]}")
   return
-def getPassLst(data):
-  "return the unique pwd clues found"
-  clues = set()
-  for each in data:
-    try:
-      clues.add(each)
-    except:
-      if DEBUG: print(f"Skipped: {each}")
-  return clues
-  
+
 def runTheCode(path=PATH):
   "run the code"
   keyfile = True and input("Which file?") or DEFAULTFILE
@@ -135,12 +136,10 @@ if __name__ == '__main__':
   print(f"There are {len(data)} items in this report")
   #ShowList(data)
   clues = getPWDs(data)
-  #print(clues)
-  uniq = getPassLst(clues)
-  print(f"\nThere are {len(uniq)} unique clues for those items:")
-  #print(f"\nThe uniq clues are:")
-  ColumPrint(sorted(uniq),1)
   cluedict = getClueGroups(clues, data)
+  print(f"\nThere are {len(cluedict)} unique clues for those items:")
+  #print(f"\nThe uniq clues are:")
+  ColumPrint(sorted(cluedict.keys()),1)
   print("\n\nThe associations are:")
   dictPrint(cluedict)
   
