@@ -1,7 +1,7 @@
 """
 Code to manage, organize and group 'clues*' key files
 """
-PATH = r"C:/Users/hdemb/Dropbox/Documents/Family/keys/"
+PATH = input("Path?: ")
 DEFAULTFILE = "cluestestset"
 DEBUG = 0
 
