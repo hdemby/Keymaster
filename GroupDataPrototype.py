@@ -1,5 +1,5 @@
 
-path = r"C:/Users/hdemb/Dropbox/Documents/Family/keys/"
+path = input("Path? ")
 
 def minspace(lline):
   "remove extra space in lline data text"
